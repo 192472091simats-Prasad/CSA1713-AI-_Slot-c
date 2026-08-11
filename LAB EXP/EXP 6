@@ -1,0 +1,97 @@
+# ============================================================
+# DEPTH FIRST SEARCH (DFS) USING RECURSION
+# Name    : S DURGA PRASAD
+# Reg No  : 192472091
+# ============================================================
+
+
+# DFS function
+def dfs(graph, node, visited):
+
+    # Mark the current node as visited
+    visited.add(node)
+
+    # Display the current node
+    print(node, end=" ")
+
+    # Visit all adjacent nodes
+    for neighbour in graph[node]:
+
+        if neighbour not in visited:
+            dfs(graph, neighbour, visited)
+
+
+# ============================================================
+# Main Program
+# ============================================================
+
+print("======================================")
+print("      DEPTH FIRST SEARCH (DFS)")
+print("======================================")
+print("Name   : S DURGA PRASAD")
+print("Reg No : 192472091")
+print("======================================")
+
+
+# Graph represented using adjacency list
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D', 'E'],
+    'C': ['A', 'F', 'G'],
+    'D': ['B'],
+    'E': ['B'],
+    'F': ['C'],
+    'G': ['C']
+}
+
+
+# Starting node
+start_node = 'A'
+
+print("\nGraph:")
+print("--------------------------------------")
+
+for node in graph:
+    print(node, "->", graph[node])
+
+
+# Create an empty set for visited nodes
+visited = set()
+
+print("\nStarting Node:", start_node)
+
+print("\nDFS Traversal:")
+print("--------------------------------------")
+
+# Perform DFS
+dfs(graph, start_node, visited)
+
+print("\n--------------------------------------")
+print("DFS Traversal Completed Successfully.")
+
+
+Output
+======================================
+      DEPTH FIRST SEARCH (DFS)
+======================================
+Name   : S DURGA PRASAD
+Reg No : 192472091
+======================================
+
+Graph:
+--------------------------------------
+A -> ['B', 'C']
+B -> ['A', 'D', 'E']
+C -> ['A', 'F', 'G']
+D -> ['B']
+E -> ['B']
+F -> ['C']
+G -> ['C']
+
+Starting Node: A
+
+DFS Traversal:
+--------------------------------------
+A B D E C F G
+--------------------------------------
+DFS Traversal Completed Successfully.
