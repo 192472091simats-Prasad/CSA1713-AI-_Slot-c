@@ -1,0 +1,115 @@
+# ============================================================
+# CRYPT ARITHMETIC PROBLEM
+# Puzzle: SEND + MORE = MONEY
+#
+# Name    : S DURGA PRASAD
+# Reg No  : 192472091
+# ============================================================
+
+from itertools import permutations
+
+
+# ============================================================
+# Main Program
+# ============================================================
+
+print("==============================================")
+print("       CRYPT ARITHMETIC PROBLEM")
+print("==============================================")
+print("Puzzle  : SEND + MORE = MONEY")
+print("Name    : S DURGA PRASAD")
+print("Reg No  : 192472091")
+print("==============================================")
+
+
+# Letters used in the puzzle
+letters = "SENDMORY"
+
+
+# Generate unique digit assignments
+for digits in permutations(range(10), len(letters)):
+
+    # Create a dictionary of letter -> digit
+    mapping = dict(zip(letters, digits))
+
+    # Leading letters cannot be zero
+    if mapping["S"] == 0 or mapping["M"] == 0:
+        continue
+
+    # Convert SEND into a number
+    SEND = (
+        mapping["S"] * 1000 +
+        mapping["E"] * 100 +
+        mapping["N"] * 10 +
+        mapping["D"]
+    )
+
+    # Convert MORE into a number
+    MORE = (
+        mapping["M"] * 1000 +
+        mapping["O"] * 100 +
+        mapping["R"] * 10 +
+        mapping["E"]
+    )
+
+    # Convert MONEY into a number
+    MONEY = (
+        mapping["M"] * 10000 +
+        mapping["O"] * 1000 +
+        mapping["N"] * 100 +
+        mapping["E"] * 10 +
+        mapping["Y"]
+    )
+
+    # Check whether the equation is satisfied
+    if SEND + MORE == MONEY:
+
+        print("\nSolution Found!")
+        print("----------------------------------------------")
+
+        for letter in sorted(mapping):
+            print(letter, "=", mapping[letter])
+
+        print("----------------------------------------------")
+
+        print("SEND  =", SEND)
+        print("MORE  =", MORE)
+        print("MONEY =", MONEY)
+
+        print("----------------------------------------------")
+
+        print("Verification:")
+        print(SEND, "+", MORE, "=", MONEY)
+
+        print("----------------------------------------------")
+        print("Crypt Arithmetic Problem Solved Successfully.")
+
+        break
+Output
+==============================================
+       CRYPT ARITHMETIC PROBLEM
+==============================================
+Puzzle  : SEND + MORE = MONEY
+Name    : S DURGA PRASAD
+Reg No  : 192472091
+==============================================
+
+Solution Found!
+----------------------------------------------
+D = 7
+E = 5
+M = 1
+N = 6
+O = 0
+R = 8
+S = 9
+Y = 2
+----------------------------------------------
+SEND  = 9567
+MORE  = 1085
+MONEY = 10652
+----------------------------------------------
+Verification:
+9567 + 1085 = 10652
+----------------------------------------------
+Crypt Arithmetic Problem Solved Successfully.
