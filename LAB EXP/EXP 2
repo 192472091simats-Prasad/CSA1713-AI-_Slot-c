@@ -1,0 +1,118 @@
+# ============================================================
+# 8-QUEEN PROBLEM USING BACKTRACKING
+# Name    : S DURGA PRASAD
+# Reg No  : 192472091
+# ============================================================
+
+N = 8
+
+# Create an empty chessboard
+board = [[0 for _ in range(N)] for _ in range(N)]
+
+
+# Function to check whether a queen can be placed safely
+def is_safe(row, col):
+
+    # Check the same column
+    for i in range(row):
+        if board[i][col] == 1:
+            return False
+
+    # Check upper-left diagonal
+    i = row - 1
+    j = col - 1
+
+    while i >= 0 and j >= 0:
+        if board[i][j] == 1:
+            return False
+        i -= 1
+        j -= 1
+
+    # Check upper-right diagonal
+    i = row - 1
+    j = col + 1
+
+    while i >= 0 and j < N:
+        if board[i][j] == 1:
+            return False
+        i -= 1
+        j += 1
+
+    return True
+
+
+# Backtracking function
+def solve(row):
+
+    # If all 8 queens are placed
+    if row == N:
+        return True
+
+    # Try each column
+    for col in range(N):
+
+        if is_safe(row, col):
+
+            # Place queen
+            board[row][col] = 1
+
+            # Move to the next row
+            if solve(row + 1):
+                return True
+
+            # Backtrack
+            board[row][col] = 0
+
+    return False
+
+
+# Main program
+print("======================================")
+print("        8-QUEEN PROBLEM")
+print("======================================")
+print("Name   : S DURGA PRASAD")
+print("Reg No : 192472091")
+print("======================================")
+
+# Solve the 8-Queen problem
+if solve(0):
+
+    print("\nSolution:")
+    print("--------------------------------------")
+
+    for row in board:
+        for cell in row:
+            if cell == 1:
+                print("Q", end=" ")
+            else:
+                print(".", end=" ")
+        print()
+
+    print("--------------------------------------")
+    print("All 8 queens are placed safely.")
+    print("No two queens attack each other.")
+
+else:
+    print("\nNo solution exists.")
+
+Output
+======================================
+        8-QUEEN PROBLEM
+======================================
+Name   : S DURGA PRASAD
+Reg No : 192472091
+======================================
+
+Solution:
+--------------------------------------
+Q . . . . . . .
+. . . . Q . . .
+. . . . . . . Q
+. . . . . Q . .
+. . Q . . . . .
+. . . . . . Q .
+. Q . . . . . .
+. . . Q . . . .
+--------------------------------------
+All 8 queens are placed safely.
+No two queens attack each other.
