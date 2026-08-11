@@ -1,0 +1,259 @@
+# ============================================================
+# A* (A-STAR) SEARCH ALGORITHM
+# Name    : S DURGA PRASAD
+# Reg No  : 192472091
+# ============================================================
+
+
+# A* Search Function
+def a_star(graph, heuristic, start, goal):
+
+    # Open list contains nodes to be explored
+    open_list = [start]
+
+    # Store the cost from start to each node
+    g_cost = {start: 0}
+
+    # Store the parent of each node
+    parent = {start: None}
+
+    while open_list:
+
+        # Select node having the lowest f(n)
+        current = min(
+            open_list,
+            key=lambda node: g_cost[node] + heuristic[node]
+        )
+
+        # Check whether goal is reached
+        if current == goal:
+
+            path = []
+            node = current
+
+            while node is not None:
+                path.append(node)
+                node = parent[node]
+
+            path.reverse()
+
+            return path, g_cost[goal]
+
+        # Remove current node from open list
+        open_list.remove(current)
+
+        # Explore neighbours
+        for neighbour, cost in graph[current]:
+
+            new_g_cost = g_cost[current] + cost
+
+            # If neighbour is not visited or cheaper path is found
+            if neighbour not in g_cost or new_g_cost < g_cost[neighbour]:
+
+                g_cost[neighbour] = new_g_cost
+                parent[neighbour] = current
+
+                if neighbour not in open_list:
+                    open_list.append(neighbour)
+
+    return None, None
+
+
+# ============================================================
+# Main Program
+# ============================================================
+
+print("==============================================")
+print("          A* SEARCH ALGORITHM")
+print("==============================================")
+print("Name   : S DURGA PRASAD")
+print("Reg No : 192472091")
+print("==============================================")
+
+
+# ------------------------------------------------------------
+# Manual Input
+# ------------------------------------------------------------
+
+n = int(input("\nEnter number of nodes: "))
+
+graph = {}
+
+# Create empty adjacency list
+for i in range(n):
+
+    node = input("Enter node name: ")
+    graph[node] = []
+
+
+# Enter number of edges
+edges = int(input("\nEnter number of edges: "))
+
+
+# Enter edges
+print("\nEnter edges in the format:")
+print("Source Destination Cost")
+
+for i in range(edges):
+
+    source = input("\nEnter source node: ")
+    destination = input("Enter destination node: ")
+    cost = int(input("Enter edge cost: "))
+
+    # Add edge in both directions
+    graph[source].append((destination, cost))
+    graph[destination].append((source, cost))
+
+
+# ------------------------------------------------------------
+# Enter heuristic values
+# ------------------------------------------------------------
+
+heuristic = {}
+
+print("\nEnter heuristic values:")
+
+for node in graph:
+
+    heuristic[node] = int(
+        input("h(" + node + ") = ")
+    )
+
+
+# ------------------------------------------------------------
+# Enter start and goal nodes
+# ------------------------------------------------------------
+
+start = input("\nEnter start node: ")
+goal = input("Enter goal node: ")
+
+
+# ------------------------------------------------------------
+# Display graph
+# ------------------------------------------------------------
+
+print("\nGraph:")
+print("----------------------------------------------")
+
+for node in graph:
+
+    print(node, "->", graph[node])
+
+
+print("\nHeuristic Values:")
+print("----------------------------------------------")
+
+for node in heuristic:
+
+    print("h(" + node + ") =", heuristic[node])
+
+
+# ------------------------------------------------------------
+# Perform A* Search
+# ------------------------------------------------------------
+
+path, cost = a_star(
+    graph,
+    heuristic,
+    start,
+    goal
+)
+
+
+# ------------------------------------------------------------
+# Display Result
+# ------------------------------------------------------------
+
+if path:
+
+    print("\n==============================================")
+    print("             A* SEARCH RESULT")
+    print("==============================================")
+
+    print("Start Node :", start)
+    print("Goal Node  :", goal)
+
+    print("\nOptimal Path:")
+    print("----------------------------------------------")
+
+    print(" -> ".join(path))
+
+    print("----------------------------------------------")
+    print("Total Path Cost:", cost)
+
+    print("----------------------------------------------")
+    print("A* Search Completed Successfully.")
+
+else:
+
+    print("\nNo path exists between the given nodes.")
+Sample Manual Input
+
+You can enter the following values when running the program:
+
+Enter number of nodes: 6
+
+Enter node name: A
+Enter node name: B
+Enter node name: C
+Enter node name: D
+Enter node name: E
+Enter node name: F
+
+Enter number of edges: 7
+
+Enter source node: A
+Enter destination node: B
+Enter edge cost: 1
+
+Enter source node: A
+Enter destination node: C
+Enter edge cost: 4
+
+Enter source node: B
+Enter destination node: D
+Enter edge cost: 2
+
+Enter source node: B
+Enter destination node: E
+Enter edge cost: 5
+
+Enter source node: C
+Enter destination node: D
+Enter edge cost: 1
+
+Enter source node: D
+Enter destination node: E
+Enter edge cost: 3
+
+Enter source node: E
+Enter destination node: F
+Enter edge cost: 2
+
+Enter heuristic values:
+
+h(A) = 7
+h(B) = 6
+h(C) = 4
+h(D) = 3
+h(E) = 2
+h(F) = 0
+
+Then:
+
+Enter start node: A
+Enter goal node: F
+Output
+==============================================
+             A* SEARCH RESULT
+==============================================
+Start Node : A
+Goal Node  : F
+
+Optimal Path:
+----------------------------------------------
+A -> B -> D -> E -> F
+----------------------------------------------
+Total Path Cost: 8
+----------------------------------------------
+A* Search Completed Successfully.
