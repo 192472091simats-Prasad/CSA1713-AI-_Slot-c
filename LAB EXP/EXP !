@@ -1,0 +1,95 @@
+# ============================================================
+# 8-PUZZLE PROBLEM USING MISPLACED TILE HEURISTIC
+# Name    : S DURGA PRASAD
+# Reg No  : 192472091
+# ============================================================
+
+# Function to count misplaced tiles
+def count_misplaced_tiles(initial, goal):
+
+    misplaced = 0
+
+    # Compare each position
+    for i in range(3):
+        for j in range(3):
+
+            # Ignore the blank tile (0)
+            if initial[i][j] != 0 and initial[i][j] != goal[i][j]:
+                misplaced += 1
+
+    return misplaced
+
+
+# Initial state
+initial_state = [
+    [1, 2, 3],
+    [4, 0, 6],
+    [7, 5, 8]
+]
+
+# Goal state
+goal_state = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 0]
+]
+
+
+# Display student details
+print("======================================")
+print("          8-PUZZLE PROBLEM")
+print("======================================")
+print("Name   : S DURGA PRASAD")
+print("Reg No : 192472091")
+print("======================================")
+
+
+# Display Initial State
+print("\nInitial State:")
+print("--------------------------------------")
+
+for row in initial_state:
+    print(row)
+
+
+# Display Goal State
+print("\nGoal State:")
+print("--------------------------------------")
+
+for row in goal_state:
+    print(row)
+
+
+# Calculate misplaced tiles
+result = count_misplaced_tiles(initial_state, goal_state)
+
+
+# Display result
+print("--------------------------------------")
+print("Number of Misplaced Tiles:", result)
+print("--------------------------------------")
+
+
+Output
+======================================
+          8-PUZZLE PROBLEM
+======================================
+Name   : S DURGA PRASAD
+Reg No : 192472091
+======================================
+
+Initial State:
+--------------------------------------
+[1, 2, 3]
+[4, 0, 6]
+[7, 5, 8]
+
+Goal State:
+--------------------------------------
+[1, 2, 3]
+[4, 5, 6]
+[7, 8, 0]
+
+--------------------------------------
+Number of Misplaced Tiles: 2
+--------------------------------------
