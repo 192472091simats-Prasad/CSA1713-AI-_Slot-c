@@ -1,0 +1,106 @@
+# ============================================================
+# BREADTH FIRST SEARCH (BFS)
+# Name    : S DURGA PRASAD
+# Reg No  : 192472091
+# ============================================================
+
+from collections import deque
+
+
+# BFS function
+def bfs(graph, start):
+
+    # Queue for BFS
+    queue = deque([start])
+
+    # Set to store visited nodes
+    visited = set()
+
+    # Mark starting node as visited
+    visited.add(start)
+
+    print("\nBFS Traversal:")
+    print("--------------------------------------")
+
+    while queue:
+
+        # Remove the first node from queue
+        node = queue.popleft()
+
+        # Print the visited node
+        print(node, end=" ")
+
+        # Visit all adjacent nodes
+        for neighbour in graph[node]:
+
+            if neighbour not in visited:
+                visited.add(neighbour)
+                queue.append(neighbour)
+
+
+# ============================================================
+# Main Program
+# ============================================================
+
+print("======================================")
+print("      BREADTH FIRST SEARCH (BFS)")
+print("======================================")
+print("Name   : S DURGA PRASAD")
+print("Reg No : 192472091")
+print("======================================")
+
+
+# Graph represented using adjacency list
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D', 'E'],
+    'C': ['A', 'F', 'G'],
+    'D': ['B'],
+    'E': ['B'],
+    'F': ['C'],
+    'G': ['C']
+}
+
+
+# Starting node
+start_node = 'A'
+
+print("\nGraph:")
+print("--------------------------------------")
+
+for node in graph:
+    print(node, "->", graph[node])
+
+
+print("\nStarting Node:", start_node)
+
+# Perform BFS
+bfs(graph, start_node)
+
+print("\n--------------------------------------")
+print("BFS Traversal Completed Successfully.")
+Output
+======================================
+      BREADTH FIRST SEARCH (BFS)
+======================================
+Name   : S DURGA PRASAD
+Reg No : 192472091
+======================================
+
+Graph:
+--------------------------------------
+A -> ['B', 'C']
+B -> ['A', 'D', 'E']
+C -> ['A', 'F', 'G']
+D -> ['B']
+E -> ['B']
+F -> ['C']
+G -> ['C']
+
+Starting Node: A
+
+BFS Traversal:
+--------------------------------------
+A B C D E F G
+--------------------------------------
+BFS Traversal Completed Successfully.
