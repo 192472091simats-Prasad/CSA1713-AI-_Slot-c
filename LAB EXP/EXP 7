@@ -1,0 +1,267 @@
+ #============================================================
+# MISSIONARIES AND CANNIBALS PROBLEM USING BFS
+# Name    : S DURGA PRASAD
+# Reg No  : 192472091
+# ============================================================
+
+from collections import deque
+
+
+# Function to check whether a state is safe
+def is_safe(m_left, c_left):
+
+    m_right = 3 - m_left
+    c_right = 3 - c_left
+
+    # Check valid number of people
+    if m_left < 0 or c_left < 0:
+        return False
+
+    if m_left > 3 or c_left > 3:
+        return False
+
+    # Check left bank
+    if m_left > 0 and c_left > m_left:
+        return False
+
+    # Check right bank
+    if m_right > 0 and c_right > m_right:
+        return False
+
+    return True
+
+
+# Function to solve the problem
+def solve_missionaries_cannibals():
+
+    # Initial state:
+    # 3 missionaries, 3 cannibals on left bank
+    # Boat is on the left
+    initial_state = (3, 3, 0)
+
+    # Goal state:
+    # Everyone is on the right bank
+    goal_state = (0, 0, 1)
+
+    # Queue for BFS
+    queue = deque([initial_state])
+
+    # Store visited states
+    visited = set()
+
+    # Store parent states
+    parent = {}
+
+    # Store the move used
+    move_used = {}
+
+    visited.add(initial_state)
+    parent[initial_state] = None
+    move_used[initial_state] = "Initial State"
+
+    # Possible boat movements
+    moves = [
+        (1, 0, "1 Missionary"),
+        (2, 0, "2 Missionaries"),
+        (0, 1, "1 Cannibal"),
+        (0, 2, "2 Cannibals"),
+        (1, 1, "1 Missionary and 1 Cannibal")
+    ]
+
+    # BFS
+    while queue:
+
+        current = queue.popleft()
+
+        m_left, c_left, boat = current
+
+        # Check goal
+        if current == goal_state:
+
+            path = []
+            state = current
+
+            while state is not None:
+                path.append(
+                    (state, move_used[state])
+                )
+                state = parent[state]
+
+            path.reverse()
+            return path
+
+        # Generate possible moves
+        for m, c, description in moves:
+
+            # Boat on left bank
+            if boat == 0:
+
+                new_m_left = m_left - m
+                new_c_left = c_left - c
+                new_boat = 1
+
+            # Boat on right bank
+            else:
+
+                new_m_left = m_left + m
+                new_c_left = c_left + c
+                new_boat = 0
+
+            new_state = (
+                new_m_left,
+                new_c_left,
+                new_boat
+            )
+
+            # Check whether new state is safe
+            if is_safe(new_m_left, new_c_left):
+
+                if new_state not in visited:
+
+                    visited.add(new_state)
+                    queue.append(new_state)
+
+                    parent[new_state] = current
+                    move_used[new_state] = description
+
+    return None
+
+
+# ============================================================
+# Main Program
+# ============================================================
+
+print("==============================================")
+print("     MISSIONARIES AND CANNIBALS PROBLEM")
+print("==============================================")
+print("Name   : S DURGA PRASAD")
+print("Reg No : 192472091")
+print("==============================================")
+
+
+# Solve the problem
+solution = solve_missionaries_cannibals()
+
+
+# Display solution
+if solution:
+
+    print("\nSolution Found!")
+    print("----------------------------------------------")
+
+    for i, (state, move) in enumerate(solution):
+
+        m_left, c_left, boat = state
+
+        m_right = 3 - m_left
+        c_right = 3 - c_left
+
+        if boat == 0:
+            boat_position = "Left"
+        else:
+            boat_position = "Right"
+
+        print("\nStep", i)
+        print("Move :", move)
+        print("Left Bank  : Missionaries =", m_left,
+              ", Cannibals =", c_left)
+        print("Right Bank : Missionaries =", m_right,
+              ", Cannibals =", c_right)
+        print("Boat       :", boat_position)
+
+    print("\n----------------------------------------------")
+    print("All missionaries and cannibals")
+    print("have been safely transported.")
+    print("Missionaries and Cannibals Problem Solved!")
+    print("----------------------------------------------")
+
+else:
+
+    print("\nNo solution exists.")
+Output
+==============================================
+     MISSIONARIES AND CANNIBALS PROBLEM
+==============================================
+Name   : S DURGA PRASAD
+Reg No : 192472091
+==============================================
+
+Solution Found!
+----------------------------------------------
+
+Step 0
+Move : Initial State
+Left Bank  : Missionaries = 3 , Cannibals = 3
+Right Bank : Missionaries = 0 , Cannibals = 0
+Boat       : Left
+
+Step 1
+Move : 2 Cannibals
+Left Bank  : Missionaries = 3 , Cannibals = 1
+Right Bank : Missionaries = 0 , Cannibals = 2
+Boat       : Right
+
+Step 2
+Move : 1 Cannibal
+Left Bank  : Missionaries = 3 , Cannibals = 2
+Right Bank : Missionaries = 0 , Cannibals = 1
+Boat       : Left
+
+Step 3
+Move : 2 Cannibals
+Left Bank  : Missionaries = 3 , Cannibals = 0
+Right Bank : Missionaries = 0 , Cannibals = 3
+Boat       : Right
+
+Step 4
+Move : 1 Cannibal
+Left Bank  : Missionaries = 3 , Cannibals = 1
+Right Bank : Missionaries = 0 , Cannibals = 2
+Boat       : Left
+
+Step 5
+Move : 2 Missionaries
+Left Bank  : Missionaries = 1 , Cannibals = 1
+Right Bank : Missionaries = 2 , Cannibals = 2
+Boat       : Right
+
+Step 6
+Move : 1 Missionary and 1 Cannibal
+Left Bank  : Missionaries = 2 , Cannibals = 2
+Right Bank : Missionaries = 1 , Cannibals = 1
+Boat       : Left
+
+Step 7
+Move : 2 Missionaries
+Left Bank  : Missionaries = 0 , Cannibals = 2
+Right Bank : Missionaries = 3 , Cannibals = 1
+Boat       : Right
+
+Step 8
+Move : 1 Cannibal
+Left Bank  : Missionaries = 0 , Cannibals = 3
+Right Bank : Missionaries = 3 , Cannibals = 0
+Boat       : Left
+
+Step 9
+Move : 2 Cannibals
+Left Bank  : Missionaries = 0 , Cannibals = 1
+Right Bank : Missionaries = 3 , Cannibals = 2
+Boat       : Right
+
+Step 10
+Move : 1 Cannibal
+Left Bank  : Missionaries = 0 , Cannibals = 2
+Right Bank : Missionaries = 3 , Cannibals = 1
+Boat       : Left
+
+Step 11
+Move : 2 Cannibals
+Left Bank  : Missionaries = 0 , Cannibals = 0
+Right Bank : Missionaries = 3 , Cannibals = 3
+Boat       : Right
+
+----------------------------------------------
+All missionaries and cannibals
+have been safely transported.
+Missionaries and Cannibals Problem Solved!
