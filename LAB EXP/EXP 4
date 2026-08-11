@@ -1,0 +1,109 @@
+# ============================================================
+# VACUUM CLEANER PROBLEM
+# Name    : S DURGA PRASAD
+# Reg No  : 192472091
+# ============================================================
+
+# Function to display room status
+def display_rooms(rooms):
+    print("Room A :", rooms["A"])
+    print("Room B :", rooms["B"])
+
+
+# Function for the vacuum cleaner agent
+def vacuum_cleaner(rooms):
+
+    print("\nCleaning Process:")
+    print("--------------------------------------")
+
+    # Visit each room
+    for room in rooms:
+
+        print("Vacuum Cleaner moves to Room", room)
+
+        # Check whether the room is dirty
+        if rooms[room] == "Dirty":
+
+            print("Room", room, "is Dirty")
+            print("Cleaning Room", room)
+
+            # Clean the room
+            rooms[room] = "Clean"
+
+            print("Room", room, "is now Clean")
+
+        else:
+            print("Room", room, "is already Clean")
+
+        print()
+
+
+# ============================================================
+# Main Program
+# ============================================================
+
+print("======================================")
+print("       VACUUM CLEANER PROBLEM")
+print("======================================")
+print("Name   : S DURGA PRASAD")
+print("Reg No : 192472091")
+print("======================================")
+
+
+# Initial room status
+rooms = {
+    "A": "Dirty",
+    "B": "Dirty"
+}
+
+
+# Display status before cleaning
+print("\nRoom Status Before Cleaning:")
+print("--------------------------------------")
+display_rooms(rooms)
+
+
+# Run the vacuum cleaner
+vacuum_cleaner(rooms)
+
+
+# Display status after cleaning
+print("Room Status After Cleaning:")
+print("--------------------------------------")
+display_rooms(rooms)
+
+print("--------------------------------------")
+print("All rooms are clean.")
+print("Vacuum Cleaner Task Completed Successfully.")
+Output
+======================================
+       VACUUM CLEANER PROBLEM
+======================================
+Name   : S DURGA PRASAD
+Reg No : 192472091
+======================================
+
+Room Status Before Cleaning:
+--------------------------------------
+Room A : Dirty
+Room B : Dirty
+
+Cleaning Process:
+--------------------------------------
+Vacuum Cleaner moves to Room A
+Room A is Dirty
+Cleaning Room A
+Room A is now Clean
+
+Vacuum Cleaner moves to Room B
+Room B is Dirty
+Cleaning Room B
+Room B is now Clean
+
+Room Status After Cleaning:
+--------------------------------------
+Room A : Clean
+Room B : Clean
+--------------------------------------
+All rooms are clean.
+Vacuum Cleaner Task Completed Successfully.
